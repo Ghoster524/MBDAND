@@ -1,2 +1,2 @@
 # MBDAND
-Het vak Android walt valt in blok 11
+Het vak Android wat valt in blok 11
