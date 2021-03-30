@@ -11,9 +11,10 @@
         android:id="@+id/contact_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="-5dp"
         android:layout_weight="1"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/message_button"
