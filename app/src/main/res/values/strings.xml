@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MBDAND Assessment</string>
     <string name="button">button</string>
+    <string name="chevron_right"><![CDATA[>]]></string>
 </resources>
