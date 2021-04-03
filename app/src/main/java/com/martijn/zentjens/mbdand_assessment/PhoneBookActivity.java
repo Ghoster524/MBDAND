@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.martijn.zentjens.mbdand_assessment.models.Contact;
@@ -88,16 +89,13 @@ public class PhoneBookActivity extends AppCompatActivity {
                     ContactsContract.Contacts.HAS_PHONE_NUMBER,
             };
 
-            // Example query on phonenumbers
+            // Filtering on PhoneNumber
             String SELECTION = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1'";
-            Cursor contacts = managedQuery(contactUri, PROJECTION, SELECTION, null, null);
 
-            try {
+            try (Cursor contacts = managedQuery(contactUri, PROJECTION, SELECTION, null, null)) {
                 while (contacts.moveToNext()) {
-                    contactList.add(new Contact(contacts.getString(1)));
+                    contactList.add(new Contact(contacts.getString(0), contacts.getString(1)));
                 }
-            } finally {
-                contacts.close();
             }
         }
     }

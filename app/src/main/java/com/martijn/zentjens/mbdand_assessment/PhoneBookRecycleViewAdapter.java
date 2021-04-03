@@ -71,4 +71,6 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
     public int getItemCount() {
         return contactList.size();
     }
+
+
 }
