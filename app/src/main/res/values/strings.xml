@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">MBDAND Assessment</string>
-    <string name="button">button</string>
+    <string name="contacts_button">Contacten</string>
     <string name="chevron_right"><![CDATA[>]]></string>
+    <string name="icebreaker">Icebreaker</string>
+    <string name="icebreaker_description">Begin jouw dag met een goeie icebreaker</string>
+    <string name="quotes_button">Quotes</string>
 </resources>

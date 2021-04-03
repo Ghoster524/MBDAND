@@ -16,6 +16,7 @@
     <!-- Ice Breaker colors  -->
     <color name="indigo_900">#303F9F</color>
     <color name="indigo_700">#3F51B5</color>
+    <color name="indigo_100">#CDD5FF</color>
 
     <color name="blue_400">#448AFF</color>
     <color name="blue_700">#2555A3</color>
