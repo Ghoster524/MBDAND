@@ -28,6 +28,9 @@ public class PhoneBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_book);
 
+        // This will enable the back-button on activity
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Get RecycleView from the layout
         RecyclerView phoneBookRecyclerView = (RecyclerView) findViewById(R.id.phone_book_list);
 
@@ -75,6 +78,7 @@ public class PhoneBookActivity extends AppCompatActivity {
     }
 
     // Read user contacts from phone
+    // TODO: Are these users being loaded from Contact app?
     public void getUserContacts() {
         contactList = new ArrayList<>();
 
@@ -88,16 +92,13 @@ public class PhoneBookActivity extends AppCompatActivity {
                     ContactsContract.Contacts.HAS_PHONE_NUMBER,
             };
 
-            // Example query on phonenumbers
+            // Filtering on PhoneNumber
             String SELECTION = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1'";
-            Cursor contacts = managedQuery(contactUri, PROJECTION, SELECTION, null, null);
 
-            try {
+            try (Cursor contacts = managedQuery(contactUri, PROJECTION, SELECTION, null, null)) {
                 while (contacts.moveToNext()) {
-                    contactList.add(new Contact(contacts.getString(1)));
+                    contactList.add(new Contact(contacts.getString(0), contacts.getString(1)));
                 }
-            } finally {
-                contacts.close();
             }
         }
     }

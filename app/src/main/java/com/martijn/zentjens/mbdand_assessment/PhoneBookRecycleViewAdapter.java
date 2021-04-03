@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
 import com.martijn.zentjens.mbdand_assessment.models.Contact;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
+        public Chip nameFirstLetter;
         public TextView nameTextView;
         public Button messageButton;
 
@@ -32,6 +34,7 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
             // to access the context from any ViewHolder instance.
             super(itemView);
 
+            nameFirstLetter = (Chip) itemView.findViewById(R.id.contact_name_first_letter);
             nameTextView = (TextView) itemView.findViewById(R.id.contact_name);
             messageButton = (Button) itemView.findViewById(R.id.message_button);
         }
@@ -61,6 +64,8 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
         Contact contact = contactList.get(position);
 
         TextView textView = holder.nameTextView;
+        Chip chip = holder.nameFirstLetter;
+        chip.setText(contact.getFirstLetter());
         textView.setText(contact.getName());
 
         // TODO: Navigate with button to detail page
@@ -71,4 +76,6 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
     public int getItemCount() {
         return contactList.size();
     }
+
+
 }

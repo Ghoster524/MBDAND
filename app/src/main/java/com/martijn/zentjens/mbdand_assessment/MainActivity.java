@@ -14,8 +14,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    // Example button load new Activity
-    public void goToAnActivity(View view) {
+    // Go to contacts
+    public void gotToContacts(View view) {
         Intent intent = new Intent(this, PhoneBookActivity.class);
         startActivity(intent);
     }
