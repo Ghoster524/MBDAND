@@ -13,7 +13,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.martijn.zentjens.mbdand_assessment.models.Contact;
@@ -28,6 +27,9 @@ public class PhoneBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_book);
+
+        // This will enable the back-button on activity
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get RecycleView from the layout
         RecyclerView phoneBookRecyclerView = (RecyclerView) findViewById(R.id.phone_book_list);
@@ -76,6 +78,7 @@ public class PhoneBookActivity extends AppCompatActivity {
     }
 
     // Read user contacts from phone
+    // TODO: Are these users being loaded from Contact app?
     public void getUserContacts() {
         contactList = new ArrayList<>();
 
