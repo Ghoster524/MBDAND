@@ -7,12 +7,20 @@
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
 
+    <com.google.android.material.chip.Chip
+        android:id="@+id/contact_name_first_letter"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:text="1"/>
+
     <TextView
         android:id="@+id/contact_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="-5dp"
+        android:layout_marginTop="2dp"
         android:layout_weight="1"
         android:textSize="16sp" />
 
@@ -21,8 +29,7 @@
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
+        android:layout_marginTop="1dp"
         android:text="@string/chevron_right"
         android:textSize="14sp"
         tools:ignore="SmallSp" />

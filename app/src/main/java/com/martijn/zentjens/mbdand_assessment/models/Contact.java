@@ -16,4 +16,8 @@ public class Contact {
     public String getId() {
         return _id;
     }
+
+    public String getFirstLetter() {
+        return _name.substring(0, 1);
+    }
 }
