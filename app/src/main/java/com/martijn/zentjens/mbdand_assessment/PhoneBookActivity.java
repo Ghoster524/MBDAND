@@ -1,6 +1,7 @@
 package com.martijn.zentjens.mbdand_assessment;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -9,23 +10,33 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.martijn.zentjens.mbdand_assessment.models.Contact;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Set;
 
 public class PhoneBookActivity extends AppCompatActivity {
     private static final int READ_CONTACTS_PERMISSIONS_REQUEST = 1;
     ArrayList<Contact> contactList;
+    int quoteAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +56,31 @@ public class PhoneBookActivity extends AppCompatActivity {
         PhoneBookRecycleViewAdapter adapter = new PhoneBookRecycleViewAdapter(contactList);
         phoneBookRecyclerView.setAdapter(adapter);
         phoneBookRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        setQuoteAmount();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        Intent intent = new Intent(this, SettingsActivity.class);
+
+        startActivityForResult(intent, 1);
+
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        setQuoteAmount();
     }
 
     // When permission has been given for the first time
@@ -121,5 +151,10 @@ public class PhoneBookActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // TODO: getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void setQuoteAmount() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        quoteAmount = Integer.parseInt(preferences.getString("amount", "1"));
     }
 }
