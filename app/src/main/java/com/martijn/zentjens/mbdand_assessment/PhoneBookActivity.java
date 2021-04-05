@@ -109,8 +109,19 @@ public class PhoneBookActivity extends AppCompatActivity {
             String SELECTION = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1'";
 
             try (Cursor contacts = managedQuery(contactUri, PROJECTION, SELECTION, null, null)) {
-                while (contacts.moveToNext()) {
-                    contactList.add(new Contact(contacts.getString(0), contacts.getString(1), null));
+                if (contacts.moveToFirst()) {
+                    String contactId = contacts.getString(contacts.getColumnIndex(ContactsContract.Contacts._ID));
+
+                    //  Get all phone numbers.
+                    Cursor phones = managedQuery(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+
+                    while (phones.moveToNext()) {
+                        String number = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                        Contact contact = new Contact(contacts.getString(0), contacts.getString(1), number);
+                        contactList.add(contact);
+                    }
+                    phones.close();
                 }
             }
         }
