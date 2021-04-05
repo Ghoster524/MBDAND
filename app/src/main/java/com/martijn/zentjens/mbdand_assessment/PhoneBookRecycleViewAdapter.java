@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,12 +16,12 @@ import java.util.List;
 
 public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookRecycleViewAdapter.ViewHolder> {
     private final List<Contact> contactList;
+    public ViewHolder viewHolder;
 
     // Provide a direct reference to each of the views within a data item
     public class ViewHolder extends RecyclerView.ViewHolder {
         public Chip firstLetterChip;
         public TextView nameTextView;
-        public Button messageButton;
 
         public ViewHolder(View itemView) {
             // Stores the itemView in a public final member variable
@@ -30,7 +29,6 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
 
             firstLetterChip = (Chip) itemView.findViewById(R.id.contact_name_first_letter_id);
             nameTextView = (TextView) itemView.findViewById(R.id.contact_name);
-            messageButton = (Button) itemView.findViewById(R.id.message_button);
         }
     }
 
@@ -48,7 +46,7 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
         View contactView = inflater.inflate(R.layout.phone_book_item, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
+        viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }
 
@@ -62,9 +60,6 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
 
         Chip chip = holder.firstLetterChip;
         chip.setText(contact.getFirstLetter());
-
-        // TODO: Navigate with button to detail page
-        Button button = holder.messageButton;
     }
 
     @Override

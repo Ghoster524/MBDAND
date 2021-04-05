@@ -3,6 +3,7 @@
     package="com.martijn.zentjens.mbdand_assessment">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MBDANDAssessment">
         <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".QuotesActivity" />
         <activity android:name=".PhoneBookActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

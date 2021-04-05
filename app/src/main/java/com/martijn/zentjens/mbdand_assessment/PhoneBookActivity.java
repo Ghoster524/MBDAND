@@ -1,14 +1,5 @@
 package com.martijn.zentjens.mbdand_assessment;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,24 +10,28 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.martijn.zentjens.mbdand_assessment.models.Contact;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
 
 public class PhoneBookActivity extends AppCompatActivity {
     private static final int READ_CONTACTS_PERMISSIONS_REQUEST = 1;
     ArrayList<Contact> contactList;
     int quoteAmount;
+    PhoneBookRecycleViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +48,7 @@ public class PhoneBookActivity extends AppCompatActivity {
         this.getUserContacts();
 
         // Attach the adapter to the recyclerview to populate items
-        PhoneBookRecycleViewAdapter adapter = new PhoneBookRecycleViewAdapter(contactList);
+        adapter = new PhoneBookRecycleViewAdapter(contactList);
         phoneBookRecyclerView.setAdapter(adapter);
         phoneBookRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -115,7 +110,7 @@ public class PhoneBookActivity extends AppCompatActivity {
 
             try (Cursor contacts = managedQuery(contactUri, PROJECTION, SELECTION, null, null)) {
                 while (contacts.moveToNext()) {
-                    contactList.add(new Contact(contacts.getString(0), contacts.getString(1)));
+                    contactList.add(new Contact(contacts.getString(0), contacts.getString(1), null));
                 }
             }
         }
@@ -149,8 +144,6 @@ public class PhoneBookActivity extends AppCompatActivity {
         toolbar.setTitle("Contacten");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFFFF"));
         setSupportActionBar(toolbar);
-
-        // TODO: getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void setQuoteAmount() {
