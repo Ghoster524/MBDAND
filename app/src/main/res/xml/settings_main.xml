@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    android:title="Aantal quotes">
+    <ListPreference
+        android:entries="@array/quote_amount"
+        android:entryValues="@array/quote_values"
+        android:key="amount"
+        android:title="Aantal quotes"/>
+</PreferenceScreen>

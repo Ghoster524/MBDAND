@@ -5,4 +5,15 @@
     <string name="icebreaker">Icebreaker</string>
     <string name="icebreaker_description">Begin jouw dag met een goeie icebreaker</string>
     <string name="quotes_button">Quotes</string>
+
+    <string-array name="quote_amount">
+        <item>Een</item>
+        <item>Twee</item>
+        <item>Drie</item>
+    </string-array>
+    <string-array name="quote_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>
