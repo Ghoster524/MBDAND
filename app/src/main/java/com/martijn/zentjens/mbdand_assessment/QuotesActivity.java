@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -95,10 +94,10 @@ public class QuotesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    private final class LongOperation extends AsyncTask<Void, Void, ArrayList<Quote>> {
+    private final class LongOperation extends AsyncTask<Void, Void, String> {
 
         @Override
-        protected ArrayList<Quote> doInBackground(Void... params) {
+        protected String doInBackground(Void... params) {
             URL url = null;
 
             try {
@@ -112,15 +111,19 @@ public class QuotesActivity extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
                     try {
                         JSONArray jsonArray = response.getJSONArray("quotes");
-                        ArrayList<Quote> quotes = new ArrayList<Quote>();
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                             // Add quote to list
-                            quotes.add(new Quote(jsonObject.optString("tag"), jsonObject.optString("text")));
-                            Log.d("TEST123", "Quote is er aangemaakt");
+                            quotesList.add(new Quote(jsonObject.optString("tag"), jsonObject.optString("text")));
                         }
+
+                        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.quotes_list);
+                        adapter = new QuotesRecycleViewAdapter(quotesList);
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(self));
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -133,15 +136,9 @@ public class QuotesActivity extends AppCompatActivity {
             });
 
             RequestQueue queue = Volley.newRequestQueue(self);
-
             queue.add(jsonObjectRequest);
 
-            return new ArrayList<Quote>();
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Quote> quotes) {
-            quotesList = quotes;
+            return "succeed";
         }
     }
 }
