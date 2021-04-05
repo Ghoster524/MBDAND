@@ -1,23 +1,34 @@
 package com.martijn.zentjens.mbdand_assessment.models;
 
 public class Contact {
-    private final String name;
+    private final String _id;
+    private final String _name;
 
     private final String phonenumber;
 
-    public Contact(String name, String phonenumber) {
-        if(phonenumber == null){
+    public Contact(String id, String name, String phonenumber) {
+        if (phonenumber == null) {
             this.phonenumber = "0642406526";
-        }
-        else{
+        } else {
             this.phonenumber = phonenumber;
         }
-        this.name = name;
+        this._name = name;
+        this._id = id;
     }
 
     public String getName() {
-        return name;
+        return _name;
     }
 
-    public String getPhonenumber() {return phonenumber; }
+    public String getId() {
+        return _id;
+    }
+
+    public String getFirstLetter() {
+        return _name.substring(0, 1);
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
 }

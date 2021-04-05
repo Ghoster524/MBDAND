@@ -7,4 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Cactus colors  -->
+    <color name="green_900">#388E3C</color>
+    <color name="green_700">#4CAF50</color>
+    <color name="green_400">#8BC34A</color>
+
+    <!-- Ice Breaker colors  -->
+    <color name="indigo_900">#303F9F</color>
+    <color name="indigo_700">#3F51B5</color>
+    <color name="indigo_100">#CDD5FF</color>
+
+    <color name="blue_400">#448AFF</color>
+    <color name="blue_700">#2555A3</color>
 </resources>

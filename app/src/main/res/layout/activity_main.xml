@@ -2,28 +2,52 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:name=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp"
+        tools:ignore="MissingConstraints">
 
-    <Button
-        android:id="@+id/button_next_page"
-        android:onClick="goToAnActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="47dp"
-        android:text="@string/button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icebreaker"
+            android:textAlignment="center"
+            android:textSize="50sp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="75dp"
+            android:text="@string/icebreaker_description"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <!-- This button will navigate to the quote-table -->
+        <Button
+            android:id="@+id/display_quotes_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="200dp"
+            android:padding="15dp"
+            android:text="@string/quotes_button" />
+
+        <!-- This button will navigate to the contacts-table -->
+        <Button
+            android:id="@+id/display_contacts_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="200dp"
+            android:onClick="gotToContacts"
+            android:padding="15dp"
+            android:text="@string/contacts_button" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

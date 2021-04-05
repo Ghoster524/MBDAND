@@ -12,10 +12,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
-    // Example button load new Activity
-    public void goToAnActivity(View view) {
+    // Go to contacts
+    public void gotToContacts(View view) {
         Intent intent = new Intent(this, PhoneBookActivity.class);
         startActivity(intent);
     }
