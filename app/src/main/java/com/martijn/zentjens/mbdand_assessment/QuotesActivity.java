@@ -1,9 +1,11 @@
 package com.martijn.zentjens.mbdand_assessment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -20,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.martijn.zentjens.mbdand_assessment.models.Quote;
+import com.martijn.zentjens.mbdand_assessment.PhoneBookActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -95,7 +98,6 @@ public class QuotesActivity extends AppCompatActivity {
     }
 
     private final class LongOperation extends AsyncTask<Void, Void, String> {
-
         @Override
         protected String doInBackground(Void... params) {
             URL url = null;

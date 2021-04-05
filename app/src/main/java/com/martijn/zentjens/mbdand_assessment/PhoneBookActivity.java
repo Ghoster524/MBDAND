@@ -12,6 +12,8 @@ import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,9 +31,10 @@ import java.util.ArrayList;
 
 public class PhoneBookActivity extends AppCompatActivity {
     private static final int READ_CONTACTS_PERMISSIONS_REQUEST = 1;
-    ArrayList<Contact> contactList;
-    int quoteAmount;
-    PhoneBookRecycleViewAdapter adapter;
+    public ArrayList<Contact> contactList;
+    public int quoteAmount;
+    public PhoneBookRecycleViewAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,21 @@ public class PhoneBookActivity extends AppCompatActivity {
         phoneBookRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         setQuoteAmount();
+
+        try{
+            ImageButton callButton = findViewById(R.id.call_button);
+
+            callButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + contactList.get(0).getPhonenumber()));
+                    startActivity(callIntent);
+                }
+            });
+        } catch (Exception e){
+
+        }
     }
 
     @Override
