@@ -1,6 +1,8 @@
 package com.martijn.zentjens.mbdand_assessment;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -31,6 +33,8 @@ import java.util.ArrayList;
 public class QuotesActivity extends AppCompatActivity {
     ArrayList<Quote> quotesList;
     QuotesRecycleViewAdapter adapter;
+    QuotesActivity.LongOperation runningTask;
+    Context self = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +61,20 @@ public class QuotesActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (runningTask != null) runningTask.cancel(true);
+    }
+
     // Get all quotes
     public void getQuotes() {
         quotesList = new ArrayList<>();
 
-        try {
-            setApiQuotes(new URL("https://goquotes-api.herokuapp.com/api/v1/random?count=2"));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        if (runningTask != null) runningTask.cancel(true);
+
+        runningTask = new QuotesActivity.LongOperation();
+        runningTask.execute();
     }
 
     // Display simple message to the user
@@ -86,34 +95,53 @@ public class QuotesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    // Set Api quotes
-    private void setApiQuotes(URL url) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url.toString(), null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray jsonArray = response.getJSONArray("quotes");
+    private final class LongOperation extends AsyncTask<Void, Void, ArrayList<Quote>> {
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+        @Override
+        protected ArrayList<Quote> doInBackground(Void... params) {
+            URL url = null;
 
-                        // Add quote to list
-                        quotesList.add(new Quote(jsonObject.optString("tag"), jsonObject.optString("text")));
-                        Log.d("TEST123", "Quote is er aangemaakt");
+            try {
+                url = new URL("https://goquotes-api.herokuapp.com/api/v1/random?count=2");
+            } catch (MalformedURLException e) {
+                createToast("Er kon geen verbinding worden gemaakt...");
+            }
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url.toString(), null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        JSONArray jsonArray = response.getJSONArray("quotes");
+                        ArrayList<Quote> quotes = new ArrayList<Quote>();
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                            // Add quote to list
+                            quotes.add(new Quote(jsonObject.optString("tag"), jsonObject.optString("text")));
+                            Log.d("TEST123", "Quote is er aangemaakt");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                createToast("Hmm, hier is iets misgegaan. Maar dit is ook een citaat!");
-            }
-        });
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    createToast("Er is iets misgegaan bij het ophalen van quites");
+                }
+            });
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+            RequestQueue queue = Volley.newRequestQueue(self);
 
-        queue.add(jsonObjectRequest);
+            queue.add(jsonObjectRequest);
+
+            return new ArrayList<Quote>();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Quote> quotes) {
+            quotesList = quotes;
+        }
     }
 }
