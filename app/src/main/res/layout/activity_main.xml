@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:name=".MainActivity"
@@ -33,16 +34,15 @@
 
         <!-- This button will navigate to the quote-table -->
         <Button
-            android:id="@+id/display_quotes_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="200dp"
+            android:onClick="gotToQuotes"
             android:padding="15dp"
             android:text="@string/quotes_button" />
 
         <!-- This button will navigate to the contacts-table -->
         <Button
-            android:id="@+id/display_contacts_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="200dp"
