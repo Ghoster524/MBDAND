@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.martijn.zentjens.mbdand_assessment.models.Contact;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookRecycleViewAdapter.ViewHolder> {
@@ -23,7 +25,7 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
-        public Chip nameFirstLetter;
+        public Chip contactFirstLetter;
         public TextView nameTextView;
         public Button messageButton;
 
@@ -33,8 +35,7 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
-
-            nameFirstLetter = (Chip) itemView.findViewById(R.id.contact_name_first_letter);
+            contactFirstLetter = (Chip) itemView.findViewById(R.id.contact_name_first_letter_id);
             nameTextView = (TextView) itemView.findViewById(R.id.contact_name);
             messageButton = (Button) itemView.findViewById(R.id.message_button);
         }
@@ -64,9 +65,10 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
         Contact contact = contactList.get(position);
 
         TextView textView = holder.nameTextView;
-        Chip chip = holder.nameFirstLetter;
-        chip.setText(contact.getFirstLetter());
         textView.setText(contact.getName());
+
+        Chip chip = holder.contactFirstLetter;
+        chip.setText(contact.getFirstLetter());
 
         // TODO: Navigate with button to detail page
         Button button = holder.messageButton;
@@ -76,6 +78,4 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
     public int getItemCount() {
         return contactList.size();
     }
-
-
 }

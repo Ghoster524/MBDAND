@@ -6,9 +6,8 @@
     android:orientation="horizontal"
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
-
     <com.google.android.material.chip.Chip
-        android:id="@+id/contact_name_first_letter"
+        android:id="@+id/contact_name_first_letter_id"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:textSize="15sp"
