@@ -1,7 +1,6 @@
 package com.martijn.zentjens.mbdand_assessment;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -92,12 +90,6 @@ public class PhoneBookActivity extends AppCompatActivity {
                 }
             }
         }
-    }
-
-    public void goToContactActivity(View view) {
-        Intent intent = new Intent(this, ContactInfo.class);
-        intent.putExtra("contactName", adapter.viewHolder.nameTextView.getText());
-        startActivity(intent);
     }
 
     // Get permission of the user to read contacts
