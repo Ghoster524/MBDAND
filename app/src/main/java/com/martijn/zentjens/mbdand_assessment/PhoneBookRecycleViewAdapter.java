@@ -1,6 +1,8 @@
 package com.martijn.zentjens.mbdand_assessment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import java.util.List;
 
 public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookRecycleViewAdapter.ViewHolder> {
     private final List<Contact> contactList;
+    public ViewHolder viewHolder;
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
@@ -51,7 +54,7 @@ public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookR
         View contactView = inflater.inflate(R.layout.phone_book_item, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
+        viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }
 

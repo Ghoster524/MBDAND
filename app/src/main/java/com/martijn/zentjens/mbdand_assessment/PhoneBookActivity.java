@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.View;
 import android.widget.Toast;
 
 import com.martijn.zentjens.mbdand_assessment.models.Contact;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 public class PhoneBookActivity extends AppCompatActivity {
     private static final int READ_CONTACTS_PERMISSIONS_REQUEST = 1;
     ArrayList<Contact> contactList;
+    PhoneBookRecycleViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class PhoneBookActivity extends AppCompatActivity {
         this.getUserContacts();
 
         // Attach the adapter to the recyclerview to populate items
-        PhoneBookRecycleViewAdapter adapter = new PhoneBookRecycleViewAdapter(contactList);
+        adapter = new PhoneBookRecycleViewAdapter(contactList);
         phoneBookRecyclerView.setAdapter(adapter);
         // Set layout manager to position the items
         phoneBookRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -94,11 +97,17 @@ public class PhoneBookActivity extends AppCompatActivity {
 
             try {
                 while (contacts.moveToNext()) {
-                    contactList.add(new Contact(contacts.getString(1)));
+                    contactList.add(new Contact(contacts.getString(1), null));
                 }
             } finally {
                 contacts.close();
             }
         }
+    }
+
+    public void goToContactActivity(View view) {
+        Intent intent = new Intent(this, ContactInfo.class);
+        intent.putExtra("contactName", adapter.viewHolder.nameTextView.getText());
+        startActivity(intent);
     }
 }
