@@ -8,7 +8,7 @@ public class Contact {
 
     public Contact(String id, String name, String phonenumber) {
         if (phonenumber == null) {
-            this.phonenumber = "0642406526";
+            this.phonenumber = "0617337565";
         } else {
             this.phonenumber = phonenumber;
         }
