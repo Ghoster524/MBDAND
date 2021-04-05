@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.martijn.zentjens.mbdand_assessment.models.Contact;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class PhoneBookRecycleViewAdapter extends RecyclerView.Adapter<PhoneBookRecycleViewAdapter.ViewHolder> {
