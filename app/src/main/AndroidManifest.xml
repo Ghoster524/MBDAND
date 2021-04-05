@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MBDANDAssessment">
         <activity android:name=".ContactInfo"></activity>
+        <activity android:name=".QuotesActivity" />
         <activity android:name=".PhoneBookActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
