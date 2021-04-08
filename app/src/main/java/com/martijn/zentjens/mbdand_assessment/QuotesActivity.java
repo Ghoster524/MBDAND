@@ -1,6 +1,7 @@
 package com.martijn.zentjens.mbdand_assessment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,7 +24,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.martijn.zentjens.mbdand_assessment.models.Quote;
-import com.martijn.zentjens.mbdand_assessment.PhoneBookActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +34,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class QuotesActivity extends AppCompatActivity {
-    ArrayList<Quote> quotesList;
+    ArrayList<Quote> quotesList = new ArrayList<>();
     QuotesRecycleViewAdapter adapter;
     QuotesActivity.LongOperation runningTask;
     Context self = this;
@@ -50,9 +51,6 @@ public class QuotesActivity extends AppCompatActivity {
 
         // Get RecycleView from the layout
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.quotes_list);
-
-        // Check if permission needs to be asked
-        this.getQuotes();
 
         // Attach the adapter to the recyclerview to populate items
         adapter = new QuotesRecycleViewAdapter(quotesList);
@@ -78,7 +76,7 @@ public class QuotesActivity extends AppCompatActivity {
 
         if (runningTask != null) runningTask.cancel(true);
 
-        runningTask = new QuotesActivity.LongOperation(preferences.getString("amount", ""));
+        runningTask = new QuotesActivity.LongOperation(preferences.getString("amount", "1"));
         runningTask.execute();
     }
 
@@ -104,9 +102,10 @@ public class QuotesActivity extends AppCompatActivity {
 
         public String amountOfQuotes;
 
-        public LongOperation(String preference){
+        public LongOperation(String preference) {
             amountOfQuotes = preference;
         }
+
         @Override
         protected String doInBackground(Void... params) {
             URL url = null;
@@ -151,5 +150,18 @@ public class QuotesActivity extends AppCompatActivity {
 
             return "succeed";
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivityForResult(intent, 1);
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        this.getQuotes();
+        super.onResume();
     }
 }

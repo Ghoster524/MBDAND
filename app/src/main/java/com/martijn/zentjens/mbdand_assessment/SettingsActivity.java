@@ -1,8 +1,5 @@
 package com.martijn.zentjens.mbdand_assessment;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
@@ -14,9 +11,11 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Collections;
 import java.util.Set;
-import java.util.prefs.Preferences;
 
 public class SettingsActivity extends AppCompatActivity {
 

@@ -12,8 +12,6 @@ import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,21 +54,6 @@ public class PhoneBookActivity extends AppCompatActivity {
         phoneBookRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         setQuoteAmount();
-
-        try{
-            ImageButton callButton = findViewById(R.id.call_button);
-
-            callButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + contactList.get(0).getPhonenumber()));
-                    startActivity(callIntent);
-                }
-            });
-        } catch (Exception e){
-
-        }
     }
 
     @Override
@@ -80,12 +63,10 @@ public class PhoneBookActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item)
-    {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = new Intent(this, SettingsActivity.class);
-
         startActivityForResult(intent, 1);
-
+        finish();
         return true;
     }
 
@@ -140,7 +121,7 @@ public class PhoneBookActivity extends AppCompatActivity {
                         contactList.add(contact);
                     }
                     phones.close();
-                }
+                } else contacts.close();
             }
         }
     }
