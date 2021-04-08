@@ -25,6 +25,7 @@
         android:textSize="16sp" />
 
     <ImageButton
+        android:onClick="callContact"
         android:id="@+id/call_button"
         android:layout_width="40dp"
         android:layout_height="40dp"

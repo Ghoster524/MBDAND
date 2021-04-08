@@ -62,8 +62,7 @@ public class PhoneBookActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item)
-    {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = new Intent(this, SettingsActivity.class);
 
         startActivityForResult(intent, 1);
@@ -122,7 +121,7 @@ public class PhoneBookActivity extends AppCompatActivity {
                         contactList.add(contact);
                     }
                     phones.close();
-                }
+                } else contacts.close();
             }
         }
     }

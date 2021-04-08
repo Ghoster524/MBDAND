@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MBDANDAssessment">
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".QuotesActivity" />
         <activity android:name=".PhoneBookActivity" />
         <activity android:name=".MainActivity">
