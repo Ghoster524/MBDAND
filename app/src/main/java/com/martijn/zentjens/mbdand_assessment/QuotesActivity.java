@@ -37,6 +37,7 @@ public class QuotesActivity extends AppCompatActivity {
     QuotesRecycleViewAdapter adapter;
     QuotesActivity.LongOperation runningTask;
     Context self = this;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,8 @@ public class QuotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quotes);
 
         this.setToolbar();
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Get RecycleView from the layout
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.quotes_list);
@@ -75,7 +78,7 @@ public class QuotesActivity extends AppCompatActivity {
 
         if (runningTask != null) runningTask.cancel(true);
 
-        runningTask = new QuotesActivity.LongOperation();
+        runningTask = new QuotesActivity.LongOperation(preferences.getString("amount", ""));
         runningTask.execute();
     }
 
@@ -98,12 +101,18 @@ public class QuotesActivity extends AppCompatActivity {
     }
 
     private final class LongOperation extends AsyncTask<Void, Void, String> {
+
+        public String amountOfQuotes;
+
+        public LongOperation(String preference){
+            amountOfQuotes = preference;
+        }
         @Override
         protected String doInBackground(Void... params) {
             URL url = null;
 
             try {
-                url = new URL("https://goquotes-api.herokuapp.com/api/v1/random?count=2");
+                url = new URL("https://goquotes-api.herokuapp.com/api/v1/random?count=" + amountOfQuotes);
             } catch (MalformedURLException e) {
                 createToast("Er kon geen verbinding worden gemaakt...");
             }
