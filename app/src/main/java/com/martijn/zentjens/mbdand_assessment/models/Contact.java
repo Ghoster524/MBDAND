@@ -2,18 +2,19 @@ package com.martijn.zentjens.mbdand_assessment.models;
 
 public class Contact {
     private final String _id;
-    private final String _name;
+    private String _name;
+    private String _phoneNumber;
 
-    private final String phonenumber;
-
-    public Contact(String id, String name, String phonenumber) {
-        if (phonenumber == null) {
-            this.phonenumber = "0612345678";
-        } else {
-            this.phonenumber = phonenumber;
-        }
-        this._name = name;
+    public Contact(String id) {
         this._id = id;
+    }
+
+    public void setName(String name) {
+        _name = name;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        _phoneNumber = phoneNumber;
     }
 
     public String getName() {
@@ -29,6 +30,6 @@ public class Contact {
     }
 
     public String getPhonenumber() {
-        return phonenumber;
+        return _phoneNumber.length() > 0 ? _phoneNumber : "0617337565";
     }
 }

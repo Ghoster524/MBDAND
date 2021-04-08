@@ -97,31 +97,49 @@ public class PhoneBookActivity extends AppCompatActivity {
         // Check if there is permission
         if (this.checkHasReadContactsPermission()) {
             Uri contactUri = ContactsContract.Contacts.CONTENT_URI;
-
-            String[] PROJECTION = new String[]{
+            String[] PROJECTION = new String[] {
                     ContactsContract.Contacts._ID,
                     ContactsContract.Contacts.DISPLAY_NAME,
                     ContactsContract.Contacts.HAS_PHONE_NUMBER,
             };
-
-            // Filtering on PhoneNumber
             String SELECTION = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1'";
+            Cursor contacts = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, PROJECTION, SELECTION, null, null);
 
-            try (Cursor contacts = managedQuery(contactUri, PROJECTION, SELECTION, null, null)) {
-                if (contacts.moveToFirst()) {
+
+            if (contacts.getCount() > 0)
+            {
+                while(contacts.moveToNext()) {
+                    int idFieldColumnIndex = 0;
+                    int nameFieldColumnIndex = 0;
+                    int numberFieldColumnIndex = 0;
+
                     String contactId = contacts.getString(contacts.getColumnIndex(ContactsContract.Contacts._ID));
+                    Contact newContact = new Contact(contactId);
 
-                    //  Get all phone numbers.
-                    Cursor phones = managedQuery(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
-
-                    while (phones.moveToNext()) {
-                        String number = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-
-                        Contact contact = new Contact(contacts.getString(0), contacts.getString(1), number);
-                        contactList.add(contact);
+                    nameFieldColumnIndex = contacts.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME);
+                    if (nameFieldColumnIndex > -1)
+                    {
+                        newContact.setName(contacts.getString(nameFieldColumnIndex));
                     }
-                    phones.close();
-                } else contacts.close();
+
+                    PROJECTION = new String[] {ContactsContract.CommonDataKinds.Phone.NUMBER};
+                    final Cursor phone = managedQuery(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, PROJECTION, ContactsContract.Data.CONTACT_ID + "=?", new String[]{String.valueOf(contactId)}, null);
+                    if(phone.moveToFirst()) {
+                        while(!phone.isAfterLast())
+                        {
+                            numberFieldColumnIndex = phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                            if (numberFieldColumnIndex > -1)
+                            {
+                                newContact.setPhoneNumber(phone.getString(numberFieldColumnIndex));
+                                contactList.add(newContact);
+                                phone.moveToNext();
+                            }
+                        }
+                    }
+                    phone.close();
+                }
+
+                contacts.close();
             }
         }
     }
