@@ -141,7 +141,7 @@ public class QuotesActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    createToast("Er is iets misgegaan bij het ophalen van quites");
+                    createToast("Er is iets misgegaan bij het ophalen van quotes");
                 }
             });
 
